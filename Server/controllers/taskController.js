@@ -4,7 +4,7 @@ import Task from "../model/Task.js";
 const getTasks = async (req, res) => {
   try {
     const { filter } = req.query;
-    const query = { user: req.user._id };
+    const query = {}; // No user filter
 
     if (filter === "completed") {
       query.completed = true;
@@ -23,15 +23,16 @@ const getTasks = async (req, res) => {
   }
 };
 
+
 //Create
 const createTask = async (req, res) => {
   try {
     const { title } = req.body;
-    if (!title) {
+    if (!title || title.trim() === "") {
       return res.status(400).json({ message: "Title is required" });
     }
 
-    const task = await Task.create({ title });
+    const task = await Task.create({ title }); 
     res.status(201).json({ message: "New Task as created successfull!", task });
   } catch (error) {
     res
@@ -59,7 +60,7 @@ const updateTasks = async (req, res) => {
 //Delete
 const deleteTasks = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     const tasks = await Task.findByIdAndDelete(id);
     if (!tasks) {
       return res.status(404).json({ message: "Task not found" });

@@ -18,7 +18,7 @@ app.use(cors())
 app.use(express.json())
 
 //Morgan
-app.use(morgan('tiny'))
+//app.use(morgan('tiny'))
 //Server config
 const port = process.env.PORT || 6969;
 const Hostname = process.env.HOSTNAME;
