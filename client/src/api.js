@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = 'http://localhost:6969/api/tasks';
+const API_URL = 'https://task-server-1-q298.onrender.com/api/tasks';
 
 const fetchTasks = (filter = "all") => {
   return axios.get(`${API_URL}?filter=${filter}`);
